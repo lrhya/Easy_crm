@@ -16,6 +16,8 @@
     </settings>
 
 
+    <!--配置分页插件-->
+
     <typeAliases>
         <package name="com.lrh.crm.bean"/>
     </typeAliases>
