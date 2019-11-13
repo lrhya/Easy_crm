@@ -11,6 +11,25 @@ public class Employee {
 
     private Integer dId;
 
+    //希望在查询员工信息的同时查询到部门信息
+    private Department department;
+
+    public Employee(Integer empId, String empName, Integer gender, String email, Integer dId) {
+        this.empId = empId;
+        this.empName = empName;
+        this.gender = gender;
+        this.email = email;
+        this.dId = dId;
+    }
+
+    public Department getDepartment() {
+        return department;
+    }
+
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+
     public Integer getEmpId() {
         return empId;
     }
