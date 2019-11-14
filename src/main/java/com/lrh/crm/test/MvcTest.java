@@ -24,6 +24,7 @@ import java.util.List;
  * @date 2019/11/13 10:56
  * 使用Spring测试模块提供的测试请求功能，测试curd请求的正确性 。Spring4测试的时候，需要servlet3.0的支持
  */
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(locations = { "classpath:applicationContext.xml", "file:src/main/webapp/WEB-INF/dispatcherServlet-servlet.xml" })
