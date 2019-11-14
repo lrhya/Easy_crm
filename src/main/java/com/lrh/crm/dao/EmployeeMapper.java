@@ -20,7 +20,6 @@ public interface EmployeeMapper {
 
     Employee selectByPrimaryKey(Integer empId);
 
-    //新添加
     List<Employee> selectByExampleWithDept(EmployeeExample example);
 
     Employee selectByPrimaryKeyWithDept(Integer empId);

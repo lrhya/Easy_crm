@@ -4,21 +4,9 @@
   <resultMap id="BaseResultMap" type="com.lrh.crm.bean.Employee">
     <id column="emp_id" jdbcType="INTEGER" property="empId" />
     <result column="emp_name" jdbcType="VARCHAR" property="empName" />
-    <result column="gender" jdbcType="INTEGER" property="gender" />
-    <result column="email" jdbcType="VARCHAR" property="email" />
-    <result column="d_id" jdbcType="INTEGER" property="dId" />
-  </resultMap>
-  <resultMap type="com.lrh.crm.bean.Employee" id="WithDeptResultMap">
-    <id column="emp_id" jdbcType="INTEGER" property="empId" />
-    <result column="emp_name" jdbcType="VARCHAR" property="empName" />
     <result column="gender" jdbcType="CHAR" property="gender" />
     <result column="email" jdbcType="VARCHAR" property="email" />
     <result column="d_id" jdbcType="INTEGER" property="dId" />
-    <!-- 指定联合查询出的部门字段的封装 -->
-    <association property="department" javaType="com.lrh.crm.bean.Department">
-      <id column="dept_id" property="deptId"/>
-      <result column="dept_name" property="deptName"/>
-    </association>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -81,13 +69,28 @@
   <sql id="Base_Column_List">
     emp_id, emp_name, gender, email, d_id
   </sql>
-  <sql id="WithDept_Column_List">
-  	e.emp_id, e.emp_name, e.gender, e.email, e.d_id,d.dept_id,d.dept_name
-  </sql>
+  <!--添加查询部门信息-->
 
+  <resultMap  id="WithDeptResultMap" type="com.lrh.crm.bean.Employee">
+    <id column="emp_id" jdbcType="INTEGER" property="empId" />
+    <result column="emp_name" jdbcType="VARCHAR" property="empName" />
+    <result column="gender" jdbcType="CHAR" property="gender" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="d_id" jdbcType="INTEGER" property="dId" />
+ <!--   <result column="dept_name" jdbcType="VARCHAR" property="deptName" />-->
+    <!-- 指定联合查询出的部门字段的封装 -->
+   <collection property="department" javaType="com.lrh.crm.bean.Department">
+      <id column="dept_id" property="deptId"/>
+      <result column="dept_name" property="deptName"/>
+    </collection>
+  </resultMap>
+
+  <sql id="WithDept_Column_List">
+	e.emp_id, e.emp_name, e.gender, e.email, e.d_id,d.dept_id,d.dept_name
+  </sql>
   <!--   List<Employee> selectByExampleWithDept(EmployeeExample example);
-  Employee selectByPrimaryKeyWithDept(Integer empId);
-  -->
+    Employee selectByPrimaryKeyWithDept(Integer empId);
+    -->
   <!-- 查询员工同时带部门信息 -->
   <select id="selectByExampleWithDept" resultMap="WithDeptResultMap">
     select
@@ -95,8 +98,8 @@
       distinct
     </if>
     <include refid="WithDept_Column_List" />
-    FROM tbl_emp e
-    left join tbl_dept d on e.`d_id`=d.`dept_id`
+    FROM t_employee e
+    left join t_department d on e.`d_id`=d.`dept_id`
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -107,17 +110,21 @@
   <select id="selectByPrimaryKeyWithDept" resultMap="WithDeptResultMap">
     select
     <include refid="WithDept_Column_List" />
-    FROM tbl_emp e
-    left join tbl_dept d on e.`d_id`=d.`dept_id`
+    FROM t_employee e
+    left join t_department d  on e.`d_id`=d.`dept_id`
     where emp_id = #{empId,jdbcType=INTEGER}
   </select>
+  <!---->
+
+
+
   <select id="selectByExample" parameterType="com.lrh.crm.bean.EmployeeExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from tb1_emp
+    from t_employee
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -128,27 +135,27 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from tb1_emp
+    from t_employee
     where emp_id = #{empId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from tb1_emp
+    delete from t_employee
     where emp_id = #{empId,jdbcType=INTEGER}
   </delete>
   <delete id="deleteByExample" parameterType="com.lrh.crm.bean.EmployeeExample">
-    delete from tb1_emp
+    delete from t_employee
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
   <insert id="insert" parameterType="com.lrh.crm.bean.Employee">
-    insert into tb1_emp (emp_id, emp_name, gender, 
+    insert into t_employee (emp_id, emp_name, gender, 
       email, d_id)
-    values (#{empId,jdbcType=INTEGER}, #{empName,jdbcType=VARCHAR}, #{gender,jdbcType=INTEGER}, 
+    values (#{empId,jdbcType=INTEGER}, #{empName,jdbcType=VARCHAR}, #{gender,jdbcType=CHAR}, 
       #{email,jdbcType=VARCHAR}, #{dId,jdbcType=INTEGER})
   </insert>
   <insert id="insertSelective" parameterType="com.lrh.crm.bean.Employee">
-    insert into tb1_emp
+    insert into t_employee
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="empId != null">
         emp_id,
@@ -174,7 +181,7 @@
         #{empName,jdbcType=VARCHAR},
       </if>
       <if test="gender != null">
-        #{gender,jdbcType=INTEGER},
+        #{gender,jdbcType=CHAR},
       </if>
       <if test="email != null">
         #{email,jdbcType=VARCHAR},
@@ -185,13 +192,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.lrh.crm.bean.EmployeeExample" resultType="java.lang.Long">
-    select count(*) from tb1_emp
+    select count(*) from t_employee
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update tb1_emp
+    update t_employee
     <set>
       <if test="record.empId != null">
         emp_id = #{record.empId,jdbcType=INTEGER},
@@ -200,7 +207,7 @@
         emp_name = #{record.empName,jdbcType=VARCHAR},
       </if>
       <if test="record.gender != null">
-        gender = #{record.gender,jdbcType=INTEGER},
+        gender = #{record.gender,jdbcType=CHAR},
       </if>
       <if test="record.email != null">
         email = #{record.email,jdbcType=VARCHAR},
@@ -214,10 +221,10 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update tb1_emp
+    update t_employee
     set emp_id = #{record.empId,jdbcType=INTEGER},
       emp_name = #{record.empName,jdbcType=VARCHAR},
-      gender = #{record.gender,jdbcType=INTEGER},
+      gender = #{record.gender,jdbcType=CHAR},
       email = #{record.email,jdbcType=VARCHAR},
       d_id = #{record.dId,jdbcType=INTEGER}
     <if test="_parameter != null">
@@ -225,13 +232,13 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.lrh.crm.bean.Employee">
-    update tb1_emp
+    update t_employee
     <set>
       <if test="empName != null">
         emp_name = #{empName,jdbcType=VARCHAR},
       </if>
       <if test="gender != null">
-        gender = #{gender,jdbcType=INTEGER},
+        gender = #{gender,jdbcType=CHAR},
       </if>
       <if test="email != null">
         email = #{email,jdbcType=VARCHAR},
@@ -243,9 +250,9 @@
     where emp_id = #{empId,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.lrh.crm.bean.Employee">
-    update tb1_emp
+    update t_employee
     set emp_name = #{empName,jdbcType=VARCHAR},
-      gender = #{gender,jdbcType=INTEGER},
+      gender = #{gender,jdbcType=CHAR},
       email = #{email,jdbcType=VARCHAR},
       d_id = #{dId,jdbcType=INTEGER}
     where emp_id = #{empId,jdbcType=INTEGER}

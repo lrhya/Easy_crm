@@ -5,21 +5,34 @@ public class Employee {
 
     private String empName;
 
-    private Integer gender;
+    private String gender;
 
     private String email;
 
     private Integer dId;
 
-    //希望在查询员工信息的同时查询到部门信息
+    //希望查询员工的同时部门信息也是查询好的
     private Department department;
 
-    public Employee(Integer empId, String empName, Integer gender, String email, Integer dId) {
+
+    public Employee() {
+        super();
+    }
+    public Employee(Integer empId, String empName, String gender, String email, Integer dId) {
         this.empId = empId;
         this.empName = empName;
         this.gender = gender;
         this.email = email;
         this.dId = dId;
+    }
+
+    public Employee(Integer empId, String empName, String gender, String email, Integer dId, Department department) {
+        this.empId = empId;
+        this.empName = empName;
+        this.gender = gender;
+        this.email = email;
+        this.dId = dId;
+        this.department = department;
     }
 
     public Department getDepartment() {
@@ -46,12 +59,12 @@ public class Employee {
         this.empName = empName == null ? null : empName.trim();
     }
 
-    public Integer getGender() {
+    public String getGender() {
         return gender;
     }
 
-    public void setGender(Integer gender) {
-        this.gender = gender;
+    public void setGender(String gender) {
+        this.gender = gender == null ? null : gender.trim();
     }
 
     public String getEmail() {

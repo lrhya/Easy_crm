@@ -7,11 +7,15 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
+
 /**
  * @author lrhya
  * @version 1.0
  * @date 2019/11/13 10:41
  */
+
+
 @Service
 public class EmployeeService {
 
@@ -19,6 +23,8 @@ public class EmployeeService {
     EmployeeMapper employeeMapper;
 
     public List<Employee> getAll() {
-        return employeeMapper.selectByExample(null);
+        return employeeMapper.selectByExampleWithDept(null);
     }
 }
+
+
