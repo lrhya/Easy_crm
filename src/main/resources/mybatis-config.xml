@@ -25,7 +25,7 @@
 
     <plugins>
         <plugin interceptor="com.github.pagehelper.PageInterceptor">
-            <!--分页参数合理化   避免出现分页下标越界-->   /
+            <!--分页参数合理化   避免出现分页下标越界-->
             <property name="reasonable" value="true"/>
         </plugin>
     </plugins>

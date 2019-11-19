@@ -8,11 +8,17 @@ import com.lrh.crm.bean.Msg;
 import com.lrh.crm.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author lrhya
@@ -27,8 +33,25 @@ public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
 
+
+    /**
+     * 员工保存
+     * 1、支持JSR303校验
+     * 2、导入Hibernate-Validator
+     *
+     * @return
+     */
+    @RequestMapping(value = "/emp", method = RequestMethod.POST)
+    @ResponseBody
+    public Msg saveEmp(Employee employee) {
+        employeeService.saveEmp(employee);
+        return Msg.success();
+    }
+
+
     /**
      * 需导入jackson包。
+     *
      * @param pn
      * @return
      */
