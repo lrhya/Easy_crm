@@ -137,6 +137,7 @@
       <scope>provided</scope>
     </dependency>
 
+    <!-- pageContext.setAttribute  -->
     <dependency>
       <groupId>javax.servlet</groupId>
       <artifactId>jsp-api</artifactId>
