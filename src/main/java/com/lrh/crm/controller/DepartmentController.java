@@ -28,7 +28,7 @@ public class DepartmentController {
      */
     @RequestMapping("/depts")
     @ResponseBody
-    public Msg getDepts(){
+    public Msg getDepts() {
         //查出的所有部门信息
         List<Department> list = departmentService.getDepts();
         return Msg.success().add("depts", list);

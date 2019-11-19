@@ -379,6 +379,18 @@
                     //2、来到最后一页，显示刚才保存的数据
                     //发送ajax请求显示最后一页数据即可
                     to_page(totalRecord);
+                }else{
+                    //显示失败信息
+                    console.log(result);
+                    //有哪个字段的错误信息就显示哪个字段的；
+                    if(undefined != result.extend.errorFields.email){
+                        //显示邮箱错误信息
+                        show_validate_msg("#email_add_input", "error", result.extend.errorFields.email);
+                    }
+                    if(undefined != result.extend.errorFields.empName){
+                        //显示员工名字的错误信息
+                        show_validate_msg("#empName_add_input", "error", result.extend.errorFields.empName);
+                    }
                 }
             }
         })

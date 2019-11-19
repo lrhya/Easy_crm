@@ -34,26 +34,26 @@ public class EmployeeController {
     EmployeeService employeeService;
 
 
-
     /**
      * 检查用户名是否可用
+     *
      * @param empName
      * @return
      */
     @ResponseBody
     @RequestMapping("/checkuser")
-    public Msg checkuser(@RequestParam("empName")String empName){
+    public Msg checkuser(@RequestParam("empName") String empName) {
         //先判断用户名是否是合法的表达式;
         String regx = "(^[a-zA-Z0-9_-]{6,16}$)|(^[\u2E80-\u9FFF]{2,5})";
-        if(!empName.matches(regx)){
+        if (!empName.matches(regx)) {
             return Msg.fail().add("va_msg", "用户名必须是6-16位数字和字母的组合或者2-5位中文");
         }
 
         //数据库用户名重复校验
         boolean b = employeeService.checkUser(empName);
-        if(b){
+        if (b) {
             return Msg.success();
-        }else{
+        } else {
             return Msg.fail().add("va_msg", "用户名已存在");
         }
     }
@@ -68,10 +68,33 @@ public class EmployeeController {
      */
     @RequestMapping(value = "/emp", method = RequestMethod.POST)
     @ResponseBody
+    public Msg saveEmp(@Valid Employee employee, BindingResult result) {
+        if (result.hasErrors()) {
+            //校验失败，应该返回失败，在模态框中显示校验失败的错误信息
+            Map<String, Object> map = new HashMap<String, Object>();
+            List<FieldError> errors = result.getFieldErrors();
+            for (FieldError fieldError : errors) {
+                System.out.println("错误的字段名：" + fieldError.getField());
+                System.out.println("错误信息：" + fieldError.getDefaultMessage());
+                map.put(fieldError.getField(), fieldError.getDefaultMessage());
+            }
+            return Msg.fail().add("errorFields", map);
+        } else {
+            employeeService.saveEmp(employee);
+            return Msg.success();
+        }
+    }
+
+    /**
+     * 员工保存
+     * @return
+     */
+    // @RequestMapping(value = "/emp", method = RequestMethod.POST)
+/*    @ResponseBody
     public Msg saveEmp(Employee employee) {
         employeeService.saveEmp(employee);
         return Msg.success();
-    }
+    }*/
 
 
     /**

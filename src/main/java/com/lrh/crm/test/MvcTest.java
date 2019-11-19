@@ -28,7 +28,7 @@ import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
-@ContextConfiguration(locations = { "classpath:applicationContext.xml", "file:src/main/webapp/WEB-INF/dispatcherServlet-servlet.xml" })
+@ContextConfiguration(locations = {"classpath:applicationContext.xml", "file:src/main/webapp/WEB-INF/dispatcherServlet-servlet.xml"})
 public class MvcTest {
     // 传入Springmvc的ioc
     @Autowired
@@ -49,19 +49,19 @@ public class MvcTest {
         //请求成功以后，请求域中会有pageInfo；我们可以取出pageInfo进行验证
         MockHttpServletRequest request = result.getRequest();
         PageInfo pi = (PageInfo) request.getAttribute("pageInfo");
-        System.out.println("当前页码："+pi.getPageNum());
-        System.out.println("总页码："+pi.getPages());
-        System.out.println("总记录数："+pi.getTotal());
+        System.out.println("当前页码：" + pi.getPageNum());
+        System.out.println("总页码：" + pi.getPages());
+        System.out.println("总记录数：" + pi.getTotal());
         System.out.println("在页面需要连续显示的页码");
         int[] nums = pi.getNavigatepageNums();
         for (int i : nums) {
-            System.out.print(" "+i);
+            System.out.print(" " + i);
         }
 
         //获取员工数据
         List<Employee> list = pi.getList();
         for (Employee employee : list) {
-            System.out.println("ID："+employee.getEmpId()+"==>Name:"+employee.getEmpName());
+            System.out.println("ID：" + employee.getEmpId() + "==>Name:" + employee.getEmpName());
         }
 
     }

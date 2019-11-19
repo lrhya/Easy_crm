@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 
-
 /**
  * @author lrhya
  * @version 1.0
@@ -24,7 +23,8 @@ public class EmployeeService {
     EmployeeMapper employeeMapper;
 
     /**
-     *查询所有员工
+     * 查询所有员工
+     *
      * @return
      */
     public List<Employee> getAll() {
@@ -32,7 +32,8 @@ public class EmployeeService {
     }
 
     /**
-     *员工保存
+     * 员工保存
+     *
      * @param employee
      */
     public void saveEmp(Employee employee) {
@@ -43,7 +44,7 @@ public class EmployeeService {
      * 检验用户名是否可用
      *
      * @param empName
-     * @return  true：代表当前姓名可用   fasle：不可用
+     * @return true：代表当前姓名可用   fasle：不可用
      */
     public boolean checkUser(String empName) {
         EmployeeExample example = new EmployeeExample();
