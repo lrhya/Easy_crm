@@ -170,8 +170,16 @@
         <!-- 分页条信息 -->
         <div class="col-md-6" id="page_nav_area"></div>
         <!-- 分页跳转信息 -->
-        <div class="col-md-6" id="page_jump_area"></div>
+        <div class="col-lg-2"  id="page_jump_area">
+            <div class="input-group">
+                <input type="text" class="form-control" id="jump_page" placeholder="Search for..">
+                <span class="input-group-btn">
+        <button class="btn btn-default" id="page_jump_btn" type="button">Go!</button>
+      </span>
+            </div><!-- /input-group -->
+        </div><!-- /.col-lg-6 -->
     </div>
+</div>
 </div>
 
 <script type="text/javascript">
@@ -195,6 +203,8 @@
                 build_page_info(result);
                 //3、解析显示分页条数据
                 build_page_nav(result);
+          /*      //4.解析显示页面调转叔叔
+                build_page_jump(result);*/
             }
         });
     }
@@ -232,6 +242,23 @@
     }
 
 
+    //点击页面跳转按钮，跳转页面
+    $("#page_jump_btn").click(function () {
+        var jumpPage = $("#jump_page").val();
+        to_page(jumpPage);
+    })
+
+/*    //解析并显示页面跳转信息
+    function build_page_jump(){
+        $("#page_jump_area").empty();
+       var jumpPage = $("<input>").append("search info ..");
+       jumpPage.addClass("form-control jump_Page");
+       var jumpBtn = $("<button></button>").addClass("btn btn-default page_jump_btn").append("GO!");
+        var jumpArea =$("<li></li>").append(jumpPage).append(jumpBtn);
+        jumpArea.addClass("input-group ");
+        jumpArea.appendTo("#page_nav_area");
+    }*/
+
 
     //解析显示分页信息
     function build_page_info(result){
@@ -245,7 +272,7 @@
     }
 
 
-    //解析并显示分页信息
+    //解析并显示分页条
     function build_page_nav(result){
         //page_nav_area
         $("#page_nav_area").empty();
@@ -303,6 +330,9 @@
         navEle.appendTo("#page_nav_area");
 
     }
+
+
+
     //清空表单样式及内容
     function reset_form(ele){
         $(ele)[0].reset();
@@ -512,9 +542,7 @@
         });
     });
 
-    //页面跳转
-    function jump_page_nav() {
-    }
+
 
 </script>
 </body>
