@@ -35,14 +35,15 @@ public class EmployeeController {
 
     /**
      * 既可删除单个员工也可批量删除员工
+     *
      * @param ids
      * @return
      */
     @ResponseBody
-    @RequestMapping(value="/emp/{ids}",method=RequestMethod.DELETE)
-    public Msg deleteEmp(@PathVariable("ids")String ids){
+    @RequestMapping(value = "/emp/{ids}", method = RequestMethod.DELETE)
+    public Msg deleteEmp(@PathVariable("ids") String ids) {
         //批量删除
-        if(ids.contains("-")){
+        if (ids.contains("-")) {
             List<Integer> del_ids = new ArrayList<Integer>();
             String[] str_ids = ids.split("-");
             //组装id的集合
@@ -50,14 +51,14 @@ public class EmployeeController {
                 del_ids.add(Integer.parseInt(string));
             }
             employeeService.deleteBatch(del_ids);
-        }else{//单个删除
+        } else {//单个删除
             Integer id = Integer.parseInt(ids);
             employeeService.deleteEmp(id);
         }
         return Msg.success();
     }
 
-/*   /**
+    /*   /**
      * 删除单个员工
      * @param id
      * @return
