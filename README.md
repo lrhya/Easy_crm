@@ -5,6 +5,7 @@
 ![M5qZB8.png](https://s2.ax1x.com/2019/11/21/M5qZB8.png)
 
 
+
 ![plateform](https://img.shields.io/badge/plateform-windows-lightgrey.svg) 
 ![IntelliJ IDEA](https://img.shields.io/badge/IntelliJ%20IDEA-2019.1.3-8B0000.svg) 
 ![JDK](https://img.shields.io/badge/JDK-1.8.0_121-3A5FCD.svg) 
@@ -15,15 +16,21 @@
 
 本项目是使用SSM框架开发的简易crm应用。
 
+
+
 **项目功能介绍：**
 
 + 增添员工信息、删除员工信息、修改员工信息、显示员工信息。
 + 分页功能、页面跳转功能、批量删除功能。
 + 数据校验功能（检查输入员工姓名与邮箱格式是否合规）。
 
+
+
 **项目整体结构图：**
 
 ![M5qeHS.png](https://s2.ax1x.com/2019/11/21/M5qeHS.png)
+
+
 
 
 
@@ -47,6 +54,8 @@
 - 版本控制：Git
 - 数据库： MySQL 
 - 服务器： Tomcat
+
+
 
 ## 开发工具
 
