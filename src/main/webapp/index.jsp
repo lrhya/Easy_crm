@@ -134,7 +134,7 @@
     <!-- 标题 -->
     <div class="row">
         <div class="col-md-12">
-            <h1>SSM-CRM</h1>
+            <h1>EASY-CRM</h1>
         </div>
     </div>
     <!-- 按钮 -->
